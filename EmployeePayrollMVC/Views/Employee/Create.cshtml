@@ -1,0 +1,90 @@
+﻿@model CommonLayer.Model.EmployeeModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>EmployeeModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<div class="form-group">
+                <label asp-for="EmpID" class="control-label"></label>
+                <input asp-for="EmpID" class="form-control" />
+                <span asp-validation-for="EmpID" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <label asp-for="EmpName" class="control-label"></label>
+                <input asp-for="EmpName" class="form-control" />
+                <span asp-validation-for="EmpName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmpProfileImage" class="control-label"></label>
+                <br/>
+                @*<input asp-for="ProfileImage" class="form-control" />*@
+               
+                    @Html.RadioButtonFor(model => model.EmpProfileImage, "~/Assets/male1.png")
+                    <img class="profile-image-1" src="~/assests/imga.png" />
+                    @Html.RadioButtonFor(model => model.EmpProfileImage, "~/Assets/male2.png")
+                    <img class="profile-image-1" src="~/assests/imgb.png" />
+                    @Html.RadioButtonFor(model => model.EmpProfileImage, "~/Assets/male2.png")
+                    <img class="profile-image-1" src="~/assests/imgc.png" />
+                @Html.RadioButtonFor(model => model.EmpProfileImage, "~/Assets/male2.png")
+                <img class="profile-image-1" src="~/assests/imgd.png" />
+                   
+                    </div>
+            @*<div class="form-group">
+                <label asp-for="EmpProfileImage" class="control-label"></label>
+                <input asp-for="EmpProfileImage" class="form-control" />
+                <span asp-validation-for="EmpProfileImage" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <label asp-for="EmpGender" class="control-label"></label>
+                <br/>
+                @*<input asp-for="EmpGender" class="form-control" />
+                <span asp-validation-for="EmpGender" class="text-danger"></span>*@
+                Male
+                @Html.RadioButtonFor(model => model.EmpGender, "Male")
+
+                FeMale
+                @Html.RadioButtonFor(model => model.EmpGender, "Female")
+
+            </div>
+            <div class="form-group">
+                <label asp-for="EmpDepartment" class="control-label"></label>
+                <input asp-for="EmpDepartment" class="form-control" />
+                <span asp-validation-for="EmpDepartment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmpSalary" class="control-label"></label>
+                <input asp-for="EmpSalary" class="form-control" />
+                <span asp-validation-for="EmpSalary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmpStartDate" class="control-label"></label>
+                <input asp-for="EmpStartDate" class="form-control" />
+                <span asp-validation-for="EmpStartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Notes" class="control-label"></label>
+                <input asp-for="Notes" class="form-control" />
+                <span asp-validation-for="Notes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
