@@ -89,6 +89,8 @@ namespace RepositoryLayer.Service
                                 EmpGender = sqlDataReader.IsDBNull("EmpGender") ? string.Empty : sqlDataReader.GetString("EmpGender"),
                                 EmpDepartment = sqlDataReader.IsDBNull("EmpDepartment") ? string.Empty : sqlDataReader.GetString("EmpDepartment"),
                                 EmpSalary = sqlDataReader.IsDBNull("EmpSalary") ? 0 : sqlDataReader.GetInt32("EmpSalary"),
+                                EmpStartDate = sqlDataReader.IsDBNull("EmpStartDate") ? new DateTime() : sqlDataReader.GetDateTime("EmpStartDate"),
+                                Notes = sqlDataReader.IsDBNull("Notes") ? string.Empty : sqlDataReader.GetString("Notes")
                             };
                             employeeList.Add(employeeModel);
 
@@ -135,14 +137,14 @@ namespace RepositoryLayer.Service
                     {
                         while (sqlDataReader.Read())
                         {
-                            
-                            
+                                                     
                             employeeModel.EmpName = sqlDataReader.IsDBNull("EmpName") ? string.Empty : sqlDataReader.GetString("EmpName");
                             employeeModel.EmpProfileImage = sqlDataReader.IsDBNull("EmpProfileImage") ? string.Empty : sqlDataReader.GetString("EmpProfileImage");
                             employeeModel.EmpGender = sqlDataReader.IsDBNull("EmpGender") ? string.Empty : sqlDataReader.GetString("EmpGender");
                             employeeModel.EmpDepartment = sqlDataReader.IsDBNull("EmpDepartment") ? string.Empty : sqlDataReader.GetString("EmpDepartment");
                             employeeModel.EmpSalary = sqlDataReader.IsDBNull("EmpSalary") ? 0 : sqlDataReader.GetInt32("EmpSalary");
-                            
+                            employeeModel.EmpStartDate = sqlDataReader.IsDBNull("EmpStartDate") ? new DateTime() : sqlDataReader.GetDateTime("EmpStartDate");
+                            employeeModel.Notes = sqlDataReader.IsDBNull("Notes") ? string.Empty : sqlDataReader.GetString("Notes");
 
                         }
                         return employeeModel;
@@ -166,6 +168,73 @@ namespace RepositoryLayer.Service
                 }
             }
 
+        }
+
+        public EmployeeModel UpdateEmployee(EmployeeModel employeeModel)
+        {
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+
+            try
+            {
+                using (sqlConnection)
+                {
+                    SqlCommand sqlCommand = new SqlCommand("UpdateEmployeeDetails", sqlConnection);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                    sqlCommand.Parameters.AddWithValue("@EmpID", employeeModel.EmpID);
+                    sqlCommand.Parameters.AddWithValue("@EmpName", employeeModel.EmpName);
+                    sqlCommand.Parameters.AddWithValue("@EmpProfileImage", employeeModel.EmpProfileImage);
+                    sqlCommand.Parameters.AddWithValue("@EmpGender", employeeModel.EmpGender);
+                    sqlCommand.Parameters.AddWithValue("@EmpDepartment", employeeModel.EmpDepartment);
+                    sqlCommand.Parameters.AddWithValue("@EmpSalary", employeeModel.EmpSalary);
+                    sqlCommand.Parameters.AddWithValue("@EmpStartDate", employeeModel.EmpStartDate);
+                    sqlCommand.Parameters.AddWithValue("@Notes", employeeModel.Notes);
+
+                    sqlConnection.Open();
+                    int result = sqlCommand.ExecuteNonQuery();
+
+                    if (result >= 1)
+                    {
+                        return employeeModel;
+                    }
+                    else
+                        return null;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (sqlConnection.State == ConnectionState.Open)
+                {
+                    sqlConnection.Close();
+                }
+            }
+        }
+
+        public void DeleteEmployee(int empId)
+        {
+            try
+            {
+                using (sqlConnection)
+                {
+                    SqlCommand sqlCommand = new SqlCommand("spDeleteEmployee",sqlConnection);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                    sqlCommand.Parameters.AddWithValue("@EmpID", empId);
+
+                    sqlConnection.Open();
+                    sqlCommand.ExecuteNonQuery();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         //public string EncryptPass(string password)

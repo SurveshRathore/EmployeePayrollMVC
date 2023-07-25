@@ -53,6 +53,32 @@ namespace BusinessLayer.Service
             }
         }
 
+        public EmployeeModel UpdateEmployee(EmployeeModel employeeModel)
+        {
+            try
+            {
+                return this.employeeRL.UpdateEmployee(employeeModel);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public void DeleteEmployee(int empId)
+        {
+            try
+            {
+                this.employeeRL.DeleteEmployee(empId);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
 
     }
 }
