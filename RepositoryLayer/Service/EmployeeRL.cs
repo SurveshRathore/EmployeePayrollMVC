@@ -137,7 +137,7 @@ namespace RepositoryLayer.Service
                     {
                         while (sqlDataReader.Read())
                         {
-                                                     
+                            employeeModel.EmpID = sqlDataReader.IsDBNull("EmpID") ? 0 : sqlDataReader.GetInt32("EmpID");                         
                             employeeModel.EmpName = sqlDataReader.IsDBNull("EmpName") ? string.Empty : sqlDataReader.GetString("EmpName");
                             employeeModel.EmpProfileImage = sqlDataReader.IsDBNull("EmpProfileImage") ? string.Empty : sqlDataReader.GetString("EmpProfileImage");
                             employeeModel.EmpGender = sqlDataReader.IsDBNull("EmpGender") ? string.Empty : sqlDataReader.GetString("EmpGender");
@@ -236,6 +236,56 @@ namespace RepositoryLayer.Service
                 throw;
             }
         }
+
+        public EmployeeModel EmployeeLogin(EmpLoginModel empLoginModel)
+        {
+            try
+            {
+                using (sqlConnection)
+                {
+                    SqlCommand sqlCommand = new SqlCommand("SpEmployeeLogin", sqlConnection);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                    sqlCommand.Parameters.AddWithValue("@EmpID", empLoginModel.EmpID);
+                    sqlCommand.Parameters.AddWithValue("@EmpName", empLoginModel.EmpName);
+
+                    sqlConnection.Open();
+                    
+                    SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                    EmployeeModel employeeModel = new EmployeeModel();
+
+                    if (sqlDataReader.HasRows)
+                    {
+                        while (sqlDataReader.Read())
+                        {
+
+                            employeeModel.EmpName = sqlDataReader.IsDBNull("EmpName") ? string.Empty : sqlDataReader.GetString("EmpName");
+                            employeeModel.EmpProfileImage = sqlDataReader.IsDBNull("EmpProfileImage") ? string.Empty : sqlDataReader.GetString("EmpProfileImage");
+                            employeeModel.EmpGender = sqlDataReader.IsDBNull("EmpGender") ? string.Empty : sqlDataReader.GetString("EmpGender");
+                            employeeModel.EmpDepartment = sqlDataReader.IsDBNull("EmpDepartment") ? string.Empty : sqlDataReader.GetString("EmpDepartment");
+                            employeeModel.EmpSalary = sqlDataReader.IsDBNull("EmpSalary") ? 0 : sqlDataReader.GetInt32("EmpSalary");
+                            employeeModel.EmpStartDate = sqlDataReader.IsDBNull("EmpStartDate") ? new DateTime() : sqlDataReader.GetDateTime("EmpStartDate");
+                            employeeModel.Notes = sqlDataReader.IsDBNull("Notes") ? string.Empty : sqlDataReader.GetString("Notes");
+
+                        }
+                        return employeeModel;
+                        
+                    }
+                    else
+                        return null;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        //public string EmployeeLogin ()
+        //{
+
+        //}
 
         //public string EncryptPass(string password)
         //{
