@@ -49,6 +49,11 @@
 }
 
 .control-label{
+    /*width: 200px;*/
+    /*margin-right: 180px;*/
+}
+
+label{
     width: 300px;
 }
 
@@ -67,8 +72,42 @@
     align-items: center;
 }
 
+.SubmitBtn{
+    display: flex;
+    margin-left: 480px;
+}
+
 /*.genderButton{
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }*/
+
+.imageButton{
+    /*border: 1px solid red;*/
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.genderButton {
+    /*border: 1px solid red;*/
+    margin-left: 10px;
+}
+
+.submitButton{
+    height: 48px;
+    width: 100px;
+    margin-left: 30px;
+    background-color: deepskyblue;
+}
+
+.imagesRadio{
+    /*border: 1px solid green;*/
+    width: 180px;
+}
+.control-label {
+    /*border: 1px solid orange;*/
+}

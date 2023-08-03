@@ -72,8 +72,17 @@
         </dd>
     </dl>
     
-    <form asp-action="DeleteEmployee">
+@*    <form asp-action="DeleteEmployee">
+
+        @Html.ActionLink("Delete", "Delete", new { id = Model.EmpID }) |
+        <a asp-action="GetEmployee">Back to List</a>
+
+    </form>*@
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="EmpID" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="GetEmployee">Back to List</a>
     </form>
+
 </div>

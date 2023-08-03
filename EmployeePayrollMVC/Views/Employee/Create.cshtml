@@ -30,21 +30,24 @@
                 <input asp-for="EmpName" class="form-control" />
                 <span asp-validation-for="EmpName" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="EmpProfileImage" class="control-label"></label>
-                <br/>
+            <div class="form-group" >
+                <div class="imagesRadio">
+                    <label asp-for="EmpProfileImage" class="control-label"></label>
+                </div>
+                
+                @*<br/>*@
                 @*<input asp-for="ProfileImage" class="form-control" />*@
                <div class="imageButton">
-                    @Html.RadioButtonFor(model => model.EmpProfileImage, "~/assets/male1.png")
+                    @Html.RadioButtonFor(model => model.EmpProfileImage, "~/assests/imga.png")
                     <img class="profile-image-1" src="~/assests/imga.png" />
                     &nbsp;&nbsp;
-                    @Html.RadioButtonFor(model => model.EmpProfileImage, "~/assets/male2.png")
+                    @Html.RadioButtonFor(model => model.EmpProfileImage, "~/assets/imgb.png")
                     <img class="profile-image-1" src="~/assests/imgb.png" />
                     &nbsp;&nbsp;
-                    @Html.RadioButtonFor(model => model.EmpProfileImage, "~/assets/male2.png")
+                    @Html.RadioButtonFor(model => model.EmpProfileImage, "~/assets/imgc.png")
                     <img class="profile-image-1" src="~/assests/imgc.png" />
                     &nbsp;&nbsp;
-                    @Html.RadioButtonFor(model => model.EmpProfileImage, "~/assets/male2.png")
+                    @Html.RadioButtonFor(model => model.EmpProfileImage, "~/assets/imgd.png")
                     <img class="profile-image-1" src="~/assests/imgd.png" />
                </div>    
              </div>
@@ -55,7 +58,10 @@
                 <span asp-validation-for="EmpProfileImage" class="text-danger"></span>
             </div>*@
             <div class="form-group">
-                <label asp-for="EmpGender" class="control-label"></label>
+                <div class="imagesRadio">
+                    <label asp-for="EmpGender" class="control-label"></label>
+                </div>
+                
                 <br/>
                 @*<input asp-for="EmpGender" class="form-control" />
                 <span asp-validation-for="EmpGender" class="text-danger"></span>*@
@@ -103,7 +109,7 @@
             <div class="buttonContent">
                 <input type="button" value="cancel" class="btn btn-secondary btn-lg" />
                 <div>
-                    <input type="submit" value="Register" class="btn btn-primary" />
+                    <input type="submit" value="Register" class="submitButton" />
                     <input type="reset" value="Reset" class="btn btn-secondary btn-lg" />
                 </div>
             </div>

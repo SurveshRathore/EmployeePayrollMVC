@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>D:\IIS\Publish</_PublishTargetUrl>
+    <History>True|2023-08-02T03:49:57.2129861Z;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="EmployeeDB">
+      <Value>Data Source=%28localdb%29\MSSQLLocalDB%3bInitial Catalog=empPayrollDB%3bIntegrated Security=True%3b</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

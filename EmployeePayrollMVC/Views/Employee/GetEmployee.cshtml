@@ -14,13 +14,20 @@
     </div>
 </div>
 
-<h1>GetEmployee</h1>
+<div> Welcome &nbps; @TempData["name"]</div>
 
-<p>
-    <a asp-action="Create">Add New Employee</a>
-</p>
+<div class="employeeContent">
+
+<div class="heading">
+    <div class="empHeading">Employee Details</div>
+
+        <div class="addEmpBtn">
+        <a asp-action="Create" class="addEmpBtnContent">+ &nbsp; Add New Employee</a>
+    </div>
+</div>
+
 <table class="table">
-    <thead>
+    <thead class="tableHead">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.EmpID)
@@ -51,7 +58,7 @@
             </th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="tableBody">
 @foreach (var item in Model) {
         <tr>
             <td>
@@ -61,7 +68,8 @@
                 @Html.DisplayFor(modelItem => item.EmpName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EmpProfileImage)
+                    @Html.DisplayFor(modelItem => item.EmpProfileImage)
+               @* <img src=@ViewBag.image>*@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.EmpGender)
@@ -87,3 +95,5 @@
 }
     </tbody>
 </table>
+</div>
+

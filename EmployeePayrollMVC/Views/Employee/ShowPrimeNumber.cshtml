@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewData["Title"] = "ShowPrimeNumber";
+}
+
+<h1>ShowPrimeNumber</h1>
+
+<label>@ViewBag.Date</label>
+
+@foreach (var num in (List<int>) ViewData["number"] )
+{
+    <h1>num</h1>
+}
+

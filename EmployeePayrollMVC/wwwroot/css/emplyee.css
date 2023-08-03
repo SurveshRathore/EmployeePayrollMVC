@@ -73,3 +73,35 @@
     justify-content: center;
     background-color: whitesmoke;
 }
+
+.tableHead{
+    background-color: lightslategray;
+}
+
+.tableBody{
+    background-color: white;
+}
+
+.heading{
+    display: flex;
+    flex-direction: row;
+    /*border: 1px solid red;*/
+    justify-content: space-between;
+    align-items: center;
+}
+
+.employeeContent {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    background-color: darkgray;
+}
+.addEmpBtn{
+    height: 50%;
+}
+
+.addEmpBtnContent {
+    background-color: limegreen;
+    color: white;
+    height: 70px;
+}

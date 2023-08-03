@@ -1,6 +1,8 @@
 ﻿using BusinessLayer.Interface;
 using CommonLayer.Model;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -42,6 +44,7 @@ namespace EmployeePayrollMVC.Controllers
             {
                 List<EmployeeModel> empList = new List<EmployeeModel>();
                 empList = employeeBL.GetEmployees().ToList();
+                ViewBag.image = "~/assests/imgc.png"; 
                 return View(empList);
             }
             catch (System.Exception)
@@ -53,11 +56,12 @@ namespace EmployeePayrollMVC.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetEmployeeByID(int id)
+        public IActionResult GetEmployeeByID(int EmpID)
         {
             try
             {
-                EmployeeModel employeeModel = employeeBL.GetEmployeesById(id);
+                EmpID = (int)HttpContext.Session.GetInt32("EmpID");
+                EmployeeModel employeeModel = employeeBL.GetEmployeesById(EmpID);
                 return View(employeeModel);
             }
             catch (System.Exception)
@@ -85,16 +89,17 @@ namespace EmployeePayrollMVC.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        public IActionResult DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int EmpID)
         {
-            employeeBL.DeleteEmployee(id);
-            return RedirectToAction("Index");
+            employeeBL.DeleteEmployee(EmpID);
+            return RedirectToAction("GetEmployee");
         }
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            if(id == 0)
+            id = (int)HttpContext.Session.GetInt32("EmpID");
+            if (id == 0)
             {
                 return NotFound();
             }
@@ -107,20 +112,91 @@ namespace EmployeePayrollMVC.Controllers
             return View(employeeModel);
         }
 
+        //[HttpPost]
+        //public IActionResult Edit(int id, [Bind] EmployeeModel employeeModel)
+        //{
+        //    //id = (int)HttpContext.Session.GetInt32("EmpID");
+        //    if (id != employeeModel.EmpID)
+        //    {
+        //        return NotFound();
+        //    }
+        //    if (ModelState.IsValid)
+        //    {
+        //        employeeBL.UpdateEmployee(employeeModel);
+        //        return RedirectToAction("GetEmployeeByID");
+        //    }
+        //    return View(employeeModel);
+        //}
+
         [HttpPost]
         public IActionResult Edit(int id, [Bind] EmployeeModel employeeModel)
         {
-            if (id != employeeModel.EmpID)
-            {
-                return NotFound();
-            }
+            employeeModel.EmpID = id;
             if (ModelState.IsValid)
             {
                 employeeBL.UpdateEmployee(employeeModel);
-                return RedirectToAction("GetEmployee");
+                return RedirectToAction("GetEmployeeByID");
             }
             return View(employeeModel);
         }
+
+        [HttpGet]
+        public IActionResult EmpLogin()
+        {
+            return View();
+        }
+
+        
+        [HttpPost]
+        public IActionResult EmpLogin([Bind] EmpLoginModel empLoginModel)
+        {
+            if(ModelState.IsValid)
+            {
+                var result = employeeBL.EmployeeLogin(empLoginModel);
+                
+                if (result != null)
+                {
+                    HttpContext.Session.SetInt32("EmpID", empLoginModel.EmpID);
+                    HttpContext.Session.SetString("EmpName", empLoginModel.EmpName);
+
+                    return RedirectToAction("GetEmployeeByID");
+                    
+                }
+                                 
+            }
+            return View(empLoginModel);
+        }
+
+       
+
+        [HttpGet]
+        public IActionResult GetEmployeeDetails(int id)
+        {
+            int EmpID = (int)HttpContext.Session.GetInt32("EmpID");
+
+
+
+            if(EmpID == 0)
+            {
+                return NotFound();
+            }
+            return RedirectToAction("GetEmployee");
+        }
+
+        
+        public void ShowPrimeNumber()
+        {
+            List<int> primeNumber = new List<int>();
+            primeNumber.Add(1);
+            primeNumber.Add(3);
+            primeNumber.Add(5);
+            primeNumber.Add(7);
+            primeNumber.Add(11);
+
+            ViewBag.Date = DateTime.Now.ToString();
+            ViewData["number"] = primeNumber;
+        }
+
 
         //[HttpGet]
         //public IActionResult GetEmployee()

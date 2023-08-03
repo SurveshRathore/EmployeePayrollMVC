@@ -1,0 +1,43 @@
+﻿@model CommonLayer.Model.EmployeeModel
+
+@{
+    ViewData["Title"] = "EmpLogin";
+}
+
+<link rel="stylesheet" href="~/css/register.css" />
+<div class="logo-content">
+    <div>
+        <img class="profile-image-1" src="~/assests/empimg.png" />
+    </div>
+    <div>
+        <p class="text text-1">EMPLOYEE</p>
+        <p class="text text-2">PAYROLL</p>
+    </div>
+</div>
+<h1 class="h1">Employee Login</h1>
+<hr />
+<div class="row">
+    <div class="registerContent">
+        <form asp-action="EmpLogin">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="EmpID" class="control-label"></label>
+                <input asp-for="EmpID" class="form-control" />
+                <span asp-validation-for="EmpID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmpName" class="control-label"></label>
+                <input asp-for="EmpName" class="form-control" />
+                <span asp-validation-for="EmpName" class="text-danger"></span>
+            </div>
+            
+            <div class="SubmitBtn">
+                <input type="submit" value="Login" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -30,6 +30,15 @@ namespace EmployeePayrollMVC
             services.AddControllersWithViews();
             services.AddTransient<IEmployeeBL, EmployeeBL>();
             services.AddTransient<IEmployeeRL, EmployeeRL>();
+            services.AddTransient<IAdminBL, AdminBL>();
+            services.AddTransient<IAdminRL, AdminRL>();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromHours(5);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +57,8 @@ namespace EmployeePayrollMVC
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.UseSession();
+
             app.UseRouting();
 
             app.UseAuthorization();
@@ -63,7 +74,7 @@ namespace EmployeePayrollMVC
             {
                 endpoints.MapControllerRoute(
                     name: "employee",
-                    pattern: "{controller=Home}/{action=create}/{id?}");
+                    pattern: "{controller=employee}/{action=create}/{id?}");
             });
         }
     }
